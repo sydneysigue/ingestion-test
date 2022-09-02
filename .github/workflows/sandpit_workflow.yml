@@ -18,7 +18,8 @@ jobs:
     environment: sandpit	             
     env:	              
       DB_USERNAME: ${{ secrets.DB_USERNAME }}	             
-      DB_PASS: ${{ secrets.DB_PASS }}	        
+      DB_PASS: ${{ secrets.DB_PASS }}
+      RDSHOST: ${{ secrets.RDSHOST }}
         
     steps:	        
       - name: Checkout
@@ -28,9 +29,7 @@ jobs:
       #       sudo yum -y install postgresql-client            
       - name: Database Login	        
         run: |	        
-        
-          psql "host=aurora-postgresql-dni-stage.cluster-coekcbwbqb9h.eu-west-1.rds.amazonaws.com port=5432 sslmode=verify-full sslrootcert=full_path_to_ssl_certificate password=$RDSPASSWORD dbname=dni_ingestion_framework_sandpit user=ifw_deployment_user"	        
-        
+             psql "host=$RDSHOST port=5432 user=$DB_USERNAME password=$DB_PASS"
 
         
         
