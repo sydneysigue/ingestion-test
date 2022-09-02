@@ -20,38 +20,11 @@ jobs:
       DB_USERNAME: ${{ secrets.DB_USERNAME }}	             
       DB_PASS: ${{ secrets.DB_PASS }}	        
         
-      	        
-        
     steps:	        
-        
-      - uses: actions/checkout@v1	        
-        
-      - name: Install Dependencies	        
-        
-        run: |	        
-        
-          sudo apt-get update && sudo apt-get install postgresql-client	        
-        
-      - name: Configure AWS Credentials	        
-        
-        uses: aws-actions/configure-aws-credentials@v1	        
-        
-        with:	        
-        
-          role-to-assume: arn:aws:iam::134689845371:role/SERL_Github_Runner_Admin	        
-        
-          role-session-name: samplerolesession	        
-        
-          aws-region: eu-west-1	        
-        
-      - name: Generate Authentication Token	        
-        
-        run: echo "RDSPASSWORD=$(aws rds generate-db-auth-token --hostname aurora-postgresql-dni-stage.cluster-coekcbwbqb9h.eu-west-1.rds.amazonaws.com --port 5432 --region eu-west-1 --username $DB_USERNAME)" >> $GITHUB_ENV	        
-        
-      - name: Check env variables	        
-        
-        run: echo "hello world"	        
-        
+      - uses: actions/checkout@v1	       
+      - name: Install Dependencies	         
+        run: |	          
+          sudo apt-get update && sudo apt-get install postgresql-client	              
       - name: Database Login	        
         
         run: |	        
