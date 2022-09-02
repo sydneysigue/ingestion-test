@@ -29,7 +29,7 @@ jobs:
       #       sudo yum -y install postgresql-client            
       - name: Database Login	        
         run: |	
-             PGPASSWORD=$DB_PASS psql -h $RDSHOST -U $DB_USERNAME -d tester -p 5432
+             PGPASSWORD=$DB_PASS psql -h $RDSHOST -U $DB_USERNAME -d tester -p 5432 -f data/dif/data/sch.sql -f data/dif/data/user.sql
              #psql "host=$RDSHOST port=5432 user=$DB_USERNAME password=$DB_PASS dbname=tester " 
       - name: Database Login	        
         run: |	        
