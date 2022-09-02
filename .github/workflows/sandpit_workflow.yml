@@ -1,0 +1,98 @@
+name: Pull Request Deployment to Sandpit Workspace	        
+        
+
+        
+        
+on:	        
+        
+  push:	        
+        
+  #pull_request:	        
+        
+  #  types:	        
+        
+  #    - opened	        
+        
+  #  branches:	        
+        
+  #  - sandpit-workflow	        
+        
+  	        
+        
+permissions:	        
+        
+  id-token: write	        
+        
+  contents: read	        
+        
+      	        
+        
+jobs:	        
+        
+  create-db-config-sandpit:	        
+        
+    runs-on: ubuntu-latest	        
+        
+    environment: sandpit	        
+        
+    env:	        
+        
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}	        
+        
+      DB_PASS: ${{ secrets.DB_PASS }}	        
+        
+      	        
+        
+    steps:	        
+        
+      - uses: actions/checkout@v1	        
+        
+      - name: Install Dependencies	        
+        
+        run: |	        
+        
+          sudo apt-get update && sudo apt-get install postgresql-client	        
+        
+      - name: Configure AWS Credentials	        
+        
+        uses: aws-actions/configure-aws-credentials@v1	        
+        
+        with:	        
+        
+          role-to-assume: arn:aws:iam::134689845371:role/SERL_Github_Runner_Admin	        
+        
+          role-session-name: samplerolesession	        
+        
+          aws-region: eu-west-1	        
+        
+      - name: Generate Authentication Token	        
+        
+        run: echo "RDSPASSWORD=$(aws rds generate-db-auth-token --hostname aurora-postgresql-dni-stage.cluster-coekcbwbqb9h.eu-west-1.rds.amazonaws.com --port 5432 --region eu-west-1 --username $DB_USERNAME)" >> $GITHUB_ENV	        
+        
+      - name: Check env variables	        
+        
+        run: echo "hello world"	        
+        
+      - name: Database Login	        
+        
+        run: |	        
+        
+          psql "host=aurora-postgresql-dni-stage.cluster-coekcbwbqb9h.eu-west-1.rds.amazonaws.com port=5432 sslmode=verify-full sslrootcert=full_path_to_ssl_certificate password=$RDSPASSWORD dbname=dni_ingestion_framework_sandpit user=ifw_deployment_user"	        
+        
+
+        
+        
+      #- name: Database Login	        
+        
+      #  run: |	        
+        
+      #    psql -h aurora-postgresql-dni-stage.cluster-coekcbwbqb9h.eu-west-1.rds.amazonaws.com -p 5432 -d dni_ingestion_framework_sandpit -U ifw_deployment_user	        
+        
+
+        
+        
+#authenicate to db	        
+        
+#deploy Database objects creation scripts	        
+        
+#deploy metadata scripts
