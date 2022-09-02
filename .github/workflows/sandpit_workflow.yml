@@ -21,7 +21,8 @@ jobs:
       DB_PASS: ${{ secrets.DB_PASS }}	        
         
     steps:	        
-      - uses: actions/checkout@v1	       
+      - name: Checkout
+        uses: actions/checkout@v1	       
       - name: Install Dependencies	         
         run: |	          
           sudo apt-get update && sudo apt-get install postgresql-client	              
