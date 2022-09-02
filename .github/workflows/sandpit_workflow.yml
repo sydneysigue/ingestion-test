@@ -15,12 +15,9 @@ permissions:
 jobs:	              
   create-db-config-sandpit:	              
     runs-on: self-hosted	              
-    environment: sandpit	        
-        
-    env:	        
-        
-      DB_USERNAME: ${{ secrets.DB_USERNAME }}	        
-        
+    environment: sandpit	             
+    env:	              
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}	             
       DB_PASS: ${{ secrets.DB_PASS }}	        
         
       	        
