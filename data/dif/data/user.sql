@@ -1,1 +1,1 @@
-CREATE USER test_user WITH PASSWORD '';
+CREATE USER test_user WITH PASSWORD 'fake';
