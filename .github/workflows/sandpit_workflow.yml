@@ -1,38 +1,20 @@
 name: Pull Request Deployment to Sandpit Workspace	        
         
-
-        
-        
-on:	        
-        
-  push:	        
-        
-  #pull_request:	        
-        
-  #  types:	        
-        
-  #    - opened	        
-        
-  #  branches:	        
-        
+on:	              
+  push:	             
+  #pull_request:	           
+  #  types:	           
+  #    - opened	       
+  #  branches:	              
   #  - sandpit-workflow	        
+              
+permissions:	               
+  id-token: write	            
+  contents: read	         	        
         
-  	        
-        
-permissions:	        
-        
-  id-token: write	        
-        
-  contents: read	        
-        
-      	        
-        
-jobs:	        
-        
-  create-db-config-sandpit:	        
-        
-    runs-on: ubuntu-latest	        
-        
+jobs:	              
+  create-db-config-sandpit:	              
+    runs-on: self-hosted	              
     environment: sandpit	        
         
     env:	        
